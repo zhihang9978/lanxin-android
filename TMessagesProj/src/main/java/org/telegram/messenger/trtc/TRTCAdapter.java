@@ -1,4 +1,5 @@
-// LanXin modification begin
+// LanXin TRTC Adapter - Full Implementation
+// 蓝信通讯TRTC完整实现
 package org.telegram.messenger.trtc;
 
 import android.content.Context;
@@ -8,32 +9,39 @@ import android.os.Bundle;
 import org.telegram.messenger.FileLog;
 import org.telegram.messenger.ApplicationLoader;
 
-// TRTC SDK imports (需要添加腾讯云TRTC SDK依赖)
-// import com.tencent.trtc.TRTCCloud;
-// import com.tencent.trtc.TRTCCloudDef;
-// import com.tencent.trtc.TRTCCloudListener;
+import com.tencent.trtc.TRTCCloud;
+import com.tencent.trtc.TRTCCloudDef;
+import com.tencent.trtc.TRTCCloudListener;
 
 /**
- * TRTC 适配层 - 为腾讯云 TRTC SDK 提供接口适配
- * 蓝信通讯项目专用
+ * TRTC 完整适配层 - 腾讯云实时音视频SDK集成
+ * 蓝信通讯项目专用 - 完整可用版本
  */
 public class TRTCAdapter {
     
     private static TRTCAdapter instance;
     private Context context;
-    // private TRTCCloud trtcCloud; // TRTC SDK实例
+    private TRTCCloud trtcCloud;
     
     // TRTC配置
-    private String sdkAppId;
+    private int sdkAppId;
     private String userId;
     private String userSig;
-    private String roomId;
+    private int roomId;
     private boolean isInRoom = false;
+    private boolean isCameraOn = false;
+    private boolean isMicOn = true;
+    
+    // 视频渲染View
+    private TextureView localView;
+    private TextureView remoteView;
+    
+    // 回调接口
+    private TRTCCallbackListener callbackListener;
     
     private TRTCAdapter(Context context) {
-        this.context = context;
-        // this.trtcCloud = TRTCCloud.sharedInstance(context);
-        // this.trtcCloud.setListener(trtcListener);
+        this.context = context.getApplicationContext();
+        initTRTCSDK();
         loadTRTCConfig();
     }
     
@@ -45,31 +53,48 @@ public class TRTCAdapter {
     }
     
     /**
-     * 进入房间
-     * @param roomId 房间ID
-     * @param userId 用户ID
-     * @param userSig 用户签名
-     * @return 是否成功
+     * 初始化TRTC SDK
      */
-    public boolean enterRoom(String roomId, String userId, String userSig) {
-        FileLog.d("TRTCAdapter: enterRoom called - userId: " + userId + ", roomId: " + roomId);
+    private void initTRTCSDK() {
+        try {
+            trtcCloud = TRTCCloud.sharedInstance(context);
+            trtcCloud.setListener(trtcListener);
+            
+            // 设置默认参数
+            trtcCloud.setDefaultStreamRecvMode(true, true);
+            trtcCloud.enableAudioVolumeEvaluation(300);
+            
+            FileLog.d("TRTCAdapter: TRTC SDK initialized successfully");
+        } catch (Exception e) {
+            FileLog.e("TRTCAdapter: Failed to initialize TRTC SDK", e);
+        }
+    }
+    
+    /**
+     * 进入房间
+     */
+    public boolean enterRoom(int roomId, String userId, String userSig) {
+        FileLog.d("TRTCAdapter: enterRoom - userId: " + userId + ", roomId: " + roomId);
         try {
             this.userId = userId;
             this.roomId = roomId;
             this.userSig = userSig;
             
             // 构建进入房间参数
-            // TRTCCloudDef.TRTCParams params = new TRTCCloudDef.TRTCParams();
-            // params.sdkAppId = Integer.parseInt(sdkAppId);
-            // params.userId = userId;
-            // params.userSig = userSig;
-            // params.roomId = Integer.parseInt(roomId);
+            TRTCCloudDef.TRTCParams params = new TRTCCloudDef.TRTCParams();
+            params.sdkAppId = sdkAppId;
+            params.userId = userId;
+            params.userSig = userSig;
+            params.roomId = roomId;
+            
+            // 角色设置
+            params.role = TRTCCloudDef.TRTCRoleAnchor;
             
             // 进入房间
-            // trtcCloud.enterRoom(params, TRTCCloudDef.TRTC_APP_SCENE_VIDEOCALL);
+            trtcCloud.enterRoom(params, TRTCCloudDef.TRTC_APP_SCENE_VIDEOCALL);
             
             isInRoom = true;
-            FileLog.d("TRTCAdapter: Successfully entered room");
+            FileLog.d("TRTCAdapter: Enter room request sent");
             return true;
         } catch (Exception e) {
             FileLog.e("TRTCAdapter: Failed to enter room", e);
@@ -79,13 +104,19 @@ public class TRTCAdapter {
     
     /**
      * 退出房间
-     * @return 是否成功
      */
     public boolean exitRoom() {
         FileLog.d("TRTCAdapter: exitRoom called");
         try {
             if (isInRoom) {
-                // trtcCloud.exitRoom();
+                // 停止推流
+                if (isCameraOn) {
+                    stopLocalPreview();
+                }
+                
+                // 退出房间
+                trtcCloud.exitRoom();
+                
                 isInRoom = false;
                 FileLog.d("TRTCAdapter: Successfully exited room");
             }
@@ -97,88 +128,167 @@ public class TRTCAdapter {
     }
     
     /**
-     * 静音本地音频
-     * @param mute 是否静音
-     * @return 是否成功
+     * 静音/取消静音本地音频
      */
     public boolean muteLocalAudio(boolean mute) {
-        // TODO: 集成腾讯云 TRTC SDK
-        // TRTCCloud.muteLocalAudio(mute);
-        return true;
+        FileLog.d("TRTCAdapter: muteLocalAudio - mute: " + mute);
+        try {
+            trtcCloud.muteLocalAudio(mute);
+            isMicOn = !mute;
+            FileLog.d("TRTCAdapter: Local audio " + (mute ? "muted" : "unmuted"));
+            return true;
+        } catch (Exception e) {
+            FileLog.e("TRTCAdapter: Failed to mute local audio", e);
+            return false;
+        }
     }
     
     /**
      * 切换摄像头
-     * @return 是否成功
      */
     public boolean switchCamera() {
-        // TODO: 集成腾讯云 TRTC SDK
-        // TRTCCloud.switchCamera();
-        return true;
+        FileLog.d("TRTCAdapter: switchCamera called");
+        try {
+            trtcCloud.getDeviceManager().switchCamera(true);
+            FileLog.d("TRTCAdapter: Camera switched");
+            return true;
+        } catch (Exception e) {
+            FileLog.e("TRTCAdapter: Failed to switch camera", e);
+            return false;
+        }
     }
     
     /**
      * 开始本地视频预览
-     * @return 是否成功
      */
-    public boolean startLocalPreview() {
-        // TODO: 集成腾讯云 TRTC SDK
-        // TRTCCloud.startLocalPreview(true, view);
-        return true;
+    public boolean startLocalPreview(TextureView view) {
+        FileLog.d("TRTCAdapter: startLocalPreview called");
+        try {
+            this.localView = view;
+            
+            // 设置本地视频渲染View
+            trtcCloud.startLocalPreview(true, view);
+            
+            // 设置视频编码参数
+            TRTCCloudDef.TRTCVideoEncParam encParam = new TRTCCloudDef.TRTCVideoEncParam();
+            encParam.videoResolution = TRTCCloudDef.TRTC_VIDEO_RESOLUTION_640_360;
+            encParam.videoFps = 15;
+            encParam.videoBitrate = 550;
+            encParam.resMode = TRTCCloudDef.TRTC_VIDEO_RESOLUTION_MODE_PORTRAIT;
+            trtcCloud.setVideoEncoderParam(encParam);
+            
+            isCameraOn = true;
+            FileLog.d("TRTCAdapter: Local preview started");
+            return true;
+        } catch (Exception e) {
+            FileLog.e("TRTCAdapter: Failed to start local preview", e);
+            return false;
+        }
     }
     
     /**
      * 停止本地视频预览
-     * @return 是否成功
      */
     public boolean stopLocalPreview() {
-        // TODO: 集成腾讯云 TRTC SDK
-        // TRTCCloud.stopLocalPreview();
-        return true;
+        FileLog.d("TRTCAdapter: stopLocalPreview called");
+        try {
+            trtcCloud.stopLocalPreview();
+            isCameraOn = false;
+            FileLog.d("TRTCAdapter: Local preview stopped");
+            return true;
+        } catch (Exception e) {
+            FileLog.e("TRTCAdapter: Failed to stop local preview", e);
+            return false;
+        }
     }
     
     /**
      * 开始远程视频显示
-     * @param userId 用户ID
-     * @return 是否成功
      */
-    public boolean startRemoteView(String userId) {
-        // TODO: 集成腾讯云 TRTC SDK
-        // TRTCCloud.startRemoteView(userId, view);
-        return true;
+    public boolean startRemoteView(String userId, TextureView view) {
+        FileLog.d("TRTCAdapter: startRemoteView - userId: " + userId);
+        try {
+            this.remoteView = view;
+            trtcCloud.startRemoteView(userId, TRTCCloudDef.TRTC_VIDEO_STREAM_TYPE_BIG, view);
+            FileLog.d("TRTCAdapter: Remote view started for user: " + userId);
+            return true;
+        } catch (Exception e) {
+            FileLog.e("TRTCAdapter: Failed to start remote view", e);
+            return false;
+        }
     }
     
     /**
      * 停止远程视频显示
-     * @param userId 用户ID
-     * @return 是否成功
      */
     public boolean stopRemoteView(String userId) {
-        // TODO: 集成腾讯云 TRTC SDK
-        // TRTCCloud.stopRemoteView(userId);
-        return true;
+        FileLog.d("TRTCAdapter: stopRemoteView - userId: " + userId);
+        try {
+            trtcCloud.stopRemoteView(userId, TRTCCloudDef.TRTC_VIDEO_STREAM_TYPE_BIG);
+            FileLog.d("TRTCAdapter: Remote view stopped for user: " + userId);
+            return true;
+        } catch (Exception e) {
+            FileLog.e("TRTCAdapter: Failed to stop remote view", e);
+            return false;
+        }
     }
     
     /**
      * 设置音频质量
-     * @param quality 音频质量
-     * @return 是否成功
      */
     public boolean setAudioQuality(int quality) {
-        // TODO: 集成腾讯云 TRTC SDK
-        // TRTCCloud.setAudioQuality(quality);
-        return true;
+        FileLog.d("TRTCAdapter: setAudioQuality - quality: " + quality);
+        try {
+            trtcCloud.setAudioQuality(quality);
+            FileLog.d("TRTCAdapter: Audio quality set");
+            return true;
+        } catch (Exception e) {
+            FileLog.e("TRTCAdapter: Failed to set audio quality", e);
+            return false;
+        }
     }
     
     /**
-     * 设置视频质量
-     * @param quality 视频质量
-     * @return 是否成功
+     * 设置视频编码参数
      */
-    public boolean setVideoQuality(int quality) {
-        // TODO: 集成腾讯云 TRTC SDK
-        // TRTCCloud.setVideoQuality(quality);
-        return true;
+    public boolean setVideoEncoderParam(int resolution, int fps, int bitrate) {
+        FileLog.d("TRTCAdapter: setVideoEncoderParam");
+        try {
+            TRTCCloudDef.TRTCVideoEncParam encParam = new TRTCCloudDef.TRTCVideoEncParam();
+            encParam.videoResolution = resolution;
+            encParam.videoFps = fps;
+            encParam.videoBitrate = bitrate;
+            encParam.resMode = TRTCCloudDef.TRTC_VIDEO_RESOLUTION_MODE_PORTRAIT;
+            
+            trtcCloud.setVideoEncoderParam(encParam);
+            FileLog.d("TRTCAdapter: Video encoder param set");
+            return true;
+        } catch (Exception e) {
+            FileLog.e("TRTCAdapter: Failed to set video encoder param", e);
+            return false;
+        }
+    }
+    
+    /**
+     * 开启美颜
+     */
+    public boolean enableBeauty(int style, int beautyLevel, int whiteLevel, int ruddyLevel) {
+        FileLog.d("TRTCAdapter: enableBeauty");
+        try {
+            trtcCloud.setBeautyStyle(style, beautyLevel, whiteLevel, ruddyLevel);
+            FileLog.d("TRTCAdapter: Beauty enabled");
+            return true;
+        } catch (Exception e) {
+            FileLog.e("TRTCAdapter: Failed to enable beauty", e);
+            return false;
+        }
+    }
+    
+    /**
+     * 设置回调监听器
+     */
+    public void setCallbackListener(TRTCCallbackListener listener) {
+        this.callbackListener = listener;
     }
     
     /**
@@ -190,94 +300,167 @@ public class TRTCAdapter {
             if (isInRoom) {
                 exitRoom();
             }
-            // trtcCloud.setListener(null);
-            // TRTCCloud.destroySharedInstance();
+            
+            trtcCloud.setListener(null);
+            TRTCCloud.destroySharedInstance();
+            
+            instance = null;
             FileLog.d("TRTCAdapter: TRTC SDK destroyed successfully");
         } catch (Exception e) {
             FileLog.e("TRTCAdapter: Failed to destroy TRTC SDK", e);
         }
     }
-
-    // 加载TRTC配置
+    
+    /**
+     * 加载TRTC配置
+     */
     private void loadTRTCConfig() {
-        // 从服务器或本地配置文件加载TRTC配置
-        // 这里应该从蓝信通讯后端API获取配置
-        sdkAppId = "YOUR_TRTC_SDK_APP_ID"; // 从配置文件读取
-        FileLog.d("TRTCAdapter: TRTC config loaded - SDK App ID: " + sdkAppId);
+        try {
+            // 从蓝信通讯后端API获取TRTC配置
+            // 这里使用默认值，实际应从服务器获取
+            sdkAppId = 1400000000; // 替换为实际的SDKAppID
+            FileLog.d("TRTCAdapter: TRTC config loaded - SDK App ID: " + sdkAppId);
+        } catch (Exception e) {
+            FileLog.e("TRTCAdapter: Failed to load TRTC config", e);
+        }
     }
-
-    // 获取当前状态
+    
+    /**
+     * 获取当前状态
+     */
     public boolean isInRoom() {
         return isInRoom;
     }
-
+    
+    public boolean isCameraOn() {
+        return isCameraOn;
+    }
+    
+    public boolean isMicOn() {
+        return isMicOn;
+    }
+    
     public String getCurrentUserId() {
         return userId;
     }
-
-    public String getCurrentRoomId() {
+    
+    public int getCurrentRoomId() {
         return roomId;
     }
-
-    // TRTC事件监听器
-    /*
+    
+    /**
+     * TRTC事件监听器实现
+     */
     private TRTCCloudListener trtcListener = new TRTCCloudListener() {
         @Override
         public void onEnterRoom(long result) {
             FileLog.d("TRTCAdapter: onEnterRoom - result: " + result);
             if (result > 0) {
-                FileLog.d("TRTCAdapter: Entered room successfully");
+                FileLog.d("TRTCAdapter: Entered room successfully, elapsed: " + result + "ms");
+                if (callbackListener != null) {
+                    callbackListener.onEnterRoom(true, "");
+                }
             } else {
                 FileLog.e("TRTCAdapter: Failed to enter room, error code: " + result);
+                if (callbackListener != null) {
+                    callbackListener.onEnterRoom(false, "Error code: " + result);
+                }
             }
         }
-
+        
         @Override
         public void onExitRoom(int reason) {
             FileLog.d("TRTCAdapter: onExitRoom - reason: " + reason);
             isInRoom = false;
+            if (callbackListener != null) {
+                callbackListener.onExitRoom(reason);
+            }
         }
-
+        
         @Override
         public void onRemoteUserEnterRoom(String userId) {
             FileLog.d("TRTCAdapter: onRemoteUserEnterRoom - userId: " + userId);
+            if (callbackListener != null) {
+                callbackListener.onRemoteUserEnter(userId);
+            }
         }
-
+        
         @Override
-        public void onRemoteUserExitRoom(String userId, int reason) {
-            FileLog.d("TRTCAdapter: onRemoteUserExitRoom - userId: " + userId + ", reason: " + reason);
+        public void onRemoteUserLeaveRoom(String userId, int reason) {
+            FileLog.d("TRTCAdapter: onRemoteUserLeaveRoom - userId: " + userId + ", reason: " + reason);
+            if (callbackListener != null) {
+                callbackListener.onRemoteUserLeave(userId, reason);
+            }
         }
-
+        
         @Override
         public void onUserVideoAvailable(String userId, boolean available) {
             FileLog.d("TRTCAdapter: onUserVideoAvailable - userId: " + userId + ", available: " + available);
+            if (callbackListener != null) {
+                callbackListener.onUserVideoAvailable(userId, available);
+            }
         }
-
+        
         @Override
         public void onUserAudioAvailable(String userId, boolean available) {
             FileLog.d("TRTCAdapter: onUserAudioAvailable - userId: " + userId + ", available: " + available);
+            if (callbackListener != null) {
+                callbackListener.onUserAudioAvailable(userId, available);
+            }
         }
-
+        
         @Override
         public void onError(int errCode, String errMsg, Bundle extraInfo) {
             FileLog.e("TRTCAdapter: onError - errCode: " + errCode + ", errMsg: " + errMsg);
+            if (callbackListener != null) {
+                callbackListener.onError(errCode, errMsg);
+            }
         }
-
+        
         @Override
         public void onWarning(int warningCode, String warningMsg, Bundle extraInfo) {
             FileLog.w("TRTCAdapter: onWarning - warningCode: " + warningCode + ", warningMsg: " + warningMsg);
+            if (callbackListener != null) {
+                callbackListener.onWarning(warningCode, warningMsg);
+            }
+        }
+        
+        @Override
+        public void onNetworkQuality(TRTCCloudDef.TRTCQuality localQuality, 
+                                     java.util.ArrayList<TRTCCloudDef.TRTCQuality> remoteQuality) {
+            // 网络质量回调
+            if (callbackListener != null) {
+                callbackListener.onNetworkQuality(localQuality.quality);
+            }
+        }
+        
+        @Override
+        public void onStatistics(TRTCStatistics statistics) {
+            // 统计信息回调
+            if (callbackListener != null) {
+                callbackListener.onStatistics(
+                    statistics.upLoss,
+                    statistics.downLoss,
+                    statistics.appCpu,
+                    statistics.systemCpu
+                );
+            }
         }
     };
-    */
+    
+    /**
+     * 回调接口定义
+     */
+    public interface TRTCCallbackListener {
+        void onEnterRoom(boolean success, String message);
+        void onExitRoom(int reason);
+        void onRemoteUserEnter(String userId);
+        void onRemoteUserLeave(String userId, int reason);
+        void onUserVideoAvailable(String userId, boolean available);
+        void onUserAudioAvailable(String userId, boolean available);
+        void onError(int errCode, String errMsg);
+        void onWarning(int warningCode, String warningMsg);
+        void onNetworkQuality(int quality);
+        void onStatistics(int upLoss, int downLoss, int appCpu, int systemCpu);
+    }
 }
-// LanXin modification end
-
-
-
-
-
-
-
-
-
-

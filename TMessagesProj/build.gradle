@@ -65,7 +65,7 @@ dependencies {
 }
 
 android {
-    namespace 'org.telegram.messenger'
+    namespace 'com.lanxin.messenger'
     compileSdkVersion 34
     buildToolsVersion '34.0.0'
     ndkVersion '26.1.10909125'

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="AppName">蓝信通讯</string>
     <string name="AppNameBeta">蓝信通讯 Beta</string>
@@ -511,7 +511,7 @@
     <string name="LinkInvalidStartNumber">Channel names can\'t start with a number.</string>
     <string name="LinkInvalidShortMega">Group names must have at least 5 characters.</string>
     <string name="LinkInvalidStartNumberMega">Group names can\'t start with a number.</string>
-    <string name="LinkChecking">Checking name�?/string>
+    <string name="LinkChecking">Checking name</string>
     <string name="LinkAvailable">%1$s is available.</string>
     <string name="ChannelMembers">Members</string>
     <string name="ChannelAddToGroup">Add to group</string>
@@ -2586,7 +2586,7 @@
     <string name="ClearCache">Clear Cache</string>
     <string name="ClearSelectedCache">Clear Selected</string>
     <string name="ClearCacheInfo">Free up disk space on your device; your media will stay in the cloud.</string>
-    <string name="ClearingCache">Clearing cache�?/string>
+    <string name="ClearingCache">Clearing cache</string>
     <string name="ClearingCacheDescription">Please keep this window open while 蓝信通讯 is clearing your cache.</string>
     <string name="ChangePhoneNumber">Change Phone Number</string>
     <string name="ChangePhoneNumberInfo">Move your account, chats and media to a new number.</string>
@@ -4559,7 +4559,7 @@
     <string name="MonthsShort_other">%1$dm</string>
     <string name="YearsShort_one">%1$dy</string>
     <string name="YearsShort_other">%1$dy</string>
-    <string name="Infinity">�?/string>
+    <string name="Infinity"></string>
     <string name="Lifetime">Lifetime</string>
     <string name="GiftMonths_one">%1$d-month</string>
     <string name="GiftMonths_other">%1$d-months</string>
@@ -5568,13 +5568,13 @@
     <string name="ClearRecentReactionsAlertMessage">Do you want to clear your recent reaction emoji from suggestions?</string>
     <string name="SelectSendAsPeerPremiumHint">Subscribe to **蓝信通讯 Premium** to be able to comment on behalf of your channels in any group chat.</string>
     <string name="SelectSendAsPeerPremiumOpen">Open</string>
-    <string name="SetEmojiStatusUntilTitle">Set status until�?/string>
+    <string name="SetEmojiStatusUntilTitle">Set status until</string>
     <string name="SetEmojiStatusUntilButton">Set Status</string>
     <string name="SetEmojiStatusUntil1Hour">Set for 1 hour</string>
     <string name="SetEmojiStatusUntil2Hours">Set for 2 hours</string>
     <string name="SetEmojiStatusUntil8Hours">Set for 8 hours</string>
     <string name="SetEmojiStatusUntil2Days">Set for 2 days</string>
-    <string name="SetEmojiStatusUntilOther">Other�?/string>
+    <string name="SetEmojiStatusUntilOther">Other</string>
     <string name="ReportSpamUserEmojiStatusHint">This account uses %1$s as a custom status next to its name. Such emoji statuses are available to all subscribers of %2$s.</string>
     <string name="ReportSpamUserEmojiStatusHint2">%1$s is a mark for **Premium subscribers >**</string>
     <string name="PremiumPreviewReactions2Description">React with thousands of emoji �?with multiple reactions per message.</string>
@@ -6094,7 +6094,7 @@
     <string name="LimitReachedSharedFolders">You can only have %1$d shareable folders.\nUpgrade to **蓝信通讯 Premium** to increase this limit to **%2$d**.</string>
     <string name="LimitReachedSharedFoldersPremium">You can only have %1$d shareable folders. Try deleting some shareable folder.</string>
     <string name="LimitReachedSharedFoldersLocked">You can only have %1$d shareable folders. We are working to let you increase this limit in the future.</string>
-    <string name="ActionSettingWallpaper">Setting new wallpaper�?/string>
+    <string name="ActionSettingWallpaper">Setting new wallpaper</string>
     <string name="ActionSetWallpaperForThisChatSelf">You set a new wallpaper for this chat</string>
     <string name="ActionSetWallpaperForThisChannel">Channel set a new wallpaper</string>
     <string name="ActionSetWallpaperForThisGroup">Group set a new wallpaper</string>
@@ -6217,12 +6217,12 @@
     <string name="DeleteStoriesTitle">Delete Stories</string>
     <string name="DeleteStoriesSubtitle_one">Are you sure you want to delete %d story?</string>
     <string name="DeleteStoriesSubtitle_other">Are you sure you want to delete %d stories?</string>
-    <string name="StoryEditing">Uploading edit�?/string>
+    <string name="StoryEditing">Uploading edit</string>
     <string name="NobodyViews">No views yet</string>
     <string name="NobodyViewsArchived">No views available</string>
     <string name="StoryUploadError">Uploading story error</string>
     <string name="MyStory">My Story</string>
-    <string name="UploadingStory">Uploading�?/string>
+    <string name="UploadingStory">Uploading</string>
     <string name="FailedStory">Failed</string>
     <string name="FailedToUploadStory">failed to upload</string>
     <string name="StoryError">Couldn’t upload</string>
@@ -6282,7 +6282,7 @@
     <string name="StoryPrivacyAlertAsMessageSubtitle">Choose recipients</string>
     <string name="StoryPrivacyAlertBlocklistTitle">Hide my stories from</string>
     <string name="StoryPrivacyAlertBlocklistSubtitle">Select people</string>
-    <string name="StoryPrivacyAlertExcludeFromEveryoneTitle">Everyone except�?/string>
+    <string name="StoryPrivacyAlertExcludeFromEveryoneTitle">Everyone except</string>
     <string name="StoryPrivacyAlertExcludeFromEveryoneSubtitle">Exclude contacts</string>
     <string name="StoryHideFrom">Hide My Stories From %s</string>
     <string name="StoryShowBackTo">Do Not Hide My Stories From %s</string>
@@ -6319,14 +6319,14 @@
     <string name="EditBotPreview">Edit Preview</string>
     <string name="WhoCanSee">Who can see</string>
     <string name="VideoConvertFail">Failed to process video file.</string>
-    <string name="PreparingVideo">Preparing video�?/string>
-    <string name="PreparingSticker">Preparing sticker�?/string>
+    <string name="PreparingVideo">Preparing video</string>
+    <string name="PreparingSticker">Preparing sticker</string>
     <string name="NoStoriesTitle">No saved stories</string>
     <string name="NoHashtagStoriesTitle">No stories found</string>
-    <string name="NoPublicStoriesTitle2">No posts yet�?/string>
+    <string name="NoPublicStoriesTitle2">No posts yet</string>
     <string name="NoStoriesSubtitle2">Publish photos and videos to display on your profile page</string>
     <string name="StoriesAddPost">Add a post</string>
-    <string name="NoArchivedStoriesTitle">No stories yet�?/string>
+    <string name="NoArchivedStoriesTitle">No stories yet</string>
     <string name="NoArchivedStoriesSubtitle">Upload a new story to view it here.</string>
     <string name="StorySave">Save to profile</string>
     <string name="StorySavedTitle_one">%d story saved to your profile</string>
@@ -6378,7 +6378,7 @@
     <string name="StoryOriginalSoundMuted">Original audio will be removed.</string>
     <string name="StoryOriginalSoundNotMuted">Original audio will be preserved.</string>
     <string name="StoryDraftSaved">Draft saved</string>
-    <string name="StoryUploading">Uploading story�?/string>
+    <string name="StoryUploading">Uploading story</string>
     <string name="NotificationStory">%s shared a story with you</string>
     <string name="NotificationChatStory">%s shared a story to the group</string>
     <string name="NotificationChannelStory">%s shared a story</string>
@@ -7101,8 +7101,8 @@
     <string name="BoostingEnableLinkIcon">Unlock Link Icons</string>
     <string name="BoostingEnableProfileIcon">Unlock Profile Icons</string>
     <string name="StorySeekHelp">Slide left or right to seek</string>
-    <string name="QuoteTo">Quote to�?/string>
-    <string name="ReplyToDialog">Reply to�?/string>
+    <string name="QuoteTo">Quote to</string>
+    <string name="ReplyToDialog">Reply to</string>
     <string name="ReplyTo">Reply to %s</string>
     <string name="ReplyToQuote">Reply to quote by %s</string>
     <string name="ReplyToTask">Reply to checklist task</string>
@@ -7892,7 +7892,7 @@
     <string name="NotificationReactions">Reactions</string>
     <string name="NotificationReactionsMessages">Messages</string>
     <string name="NotificationReactionsStories">Stories</string>
-    <string name="NotifyMeAbout">Notify me about�?/string>
+    <string name="NotifyMeAbout">Notify me about</string>
     <string name="NotifyMeAboutPrivate">New Messages in Private Chats</string>
     <string name="NotifyMeAboutNewStories">New Stories</string>
     <string name="NotifyMeAboutImportantStories">Important Stories</string>
@@ -7909,20 +7909,20 @@
     <string name="NotifyAboutReactionsFromContacts">My Contacts</string>
     <string name="NotifyAboutReactionsFromEveryone">Everyone</string>
     <string name="StickerCreateEmpty">Create</string>
-    <string name="NoChannelsTitle">No channels yet�?/string>
+    <string name="NoChannelsTitle">No channels yet</string>
     <string name="NoChannelsMessage">You are not subscribed to any channel.</string>
     <string name="SetIntroSticker">Set Intro Sticker</string>
     <string name="SMSWordTitle">Enter word from SMS</string>
-    <string name="SMSWordBeginningText">We’ve sent an SMS with a secret word that starts with �?*%2$s**�?to your phone **%1$s**.</string>
-    <string name="SMSWordText">We’ve sent an SMS with a secret word to your phone **%1$s**.</string>
+    <string name="SMSWordBeginningText">We've sent an SMS with a secret word that starts with \"%2$s\" to your phone **%1$s**.</string>
+    <string name="SMSWordText">We've sent an SMS with a secret word to your phone **%1$s**.</string>
     <string name="SMSWord">Secret word</string>
     <string name="SMSWordHint">Enter Word from SMS</string>
     <string name="SMSWordPasteHint">You can copy and paste the word here.</string>
     <string name="SMSWordError">Incorrect, please try again</string>
     <string name="SMSWordBeginningError">Incorrect word</string>
     <string name="SMSPhraseTitle">Enter phrase from SMS</string>
-    <string name="SMSPhraseText">We’ve sent an SMS with a secret phrase to your phone **%1$s**.</string>
-    <string name="SMSPhraseBeginningText">We’ve sent an SMS with a secret phrase that starts with �?*%2$s**�?to your phone **%1$s**.</string>
+    <string name="SMSPhraseText">We've sent an SMS with a secret phrase to your phone **%1$s**.</string>
+    <string name="SMSPhraseBeginningText">We've sent an SMS with a secret phrase that starts with \"%2$s\" to your phone **%1$s**.</string>
     <string name="SMSPhrase">Secret phrase</string>
     <string name="SMSPhrasePasteHint">You can copy and paste the phrase here.</string>
     <string name="SMSPhraseHint">Enter Phrase from SMS</string>
@@ -8806,7 +8806,7 @@
     <string name="BotShareMessagePreview">Message preview</string>
     <string name="BotShareMessageInfo">%s mini app suggests you to send this message to a chat you select.</string>
     <string name="BotShareMessageShare">Share with...</string>
-    <string name="BotShareToTopic">Share to�?/string>
+    <string name="BotShareToTopic">Share to</string>
     <string name="BotSharedToOne">Sent message to **%s**</string>
     <string name="BotSharedToMany_one">Sent message to %d chat</string>
     <string name="BotSharedToMany_other">Sent message to %d chats</string>
@@ -9010,11 +9010,11 @@
     <string name="Gift2AttributeSymbol">Symbol</string>
     <string name="Gift2PriceUnique">Unique</string>
     <string name="Gift2AttributeOriginalDetails">Gifted by %1$s to %2$s on %3$s.</string>
-    <string name="Gift2AttributeOriginalDetailsComment">Gifted by %1$s to %2$s on %3$s with the comment: �?4$s�?/string>
+    <string name="Gift2AttributeOriginalDetailsComment">Gifted by %1$s to %2$s on %3$s with the comment: \"%4$s\"</string>
     <string name="Gift2AttributeOriginalDetailsSelf">Gifted saved by %1$s on %2$s.</string>
-    <string name="Gift2AttributeOriginalDetailsSelfComment">Gifted by %1$s on %2$s with the comment: �?3$s�?/string>
+    <string name="Gift2AttributeOriginalDetailsSelfComment">Gifted by %1$s on %2$s with the comment: \"%3$s\"</string>
     <string name="Gift2AttributeOriginalDetailsNoSender">Gifted to %1$s on %2$s.</string>
-    <string name="Gift2AttributeOriginalDetailsNoSenderComment">Gifted to %1$s on %2$s with the comment: �?3$s�?/string>
+    <string name="Gift2AttributeOriginalDetailsNoSenderComment">Gifted to %1$s on %2$s with the comment: \"%3$s\"</string>
     <string name="Gift2Transfer">Transfer %s</string>
     <string name="Gift2TransferShort">Transfer Gift</string>
     <string name="VideoChooseCover">Choose cover</string>
@@ -9328,7 +9328,7 @@
     <string name="Gift2BuyDoPrice2TON">Buy for ⭐️%s</string>
     <string name="Gift2BuyInStars">Pay in Stars</string>
     <string name="Gift2BuyInTON">Pay in TON</string>
-    <string name="Gift2ResaleFiltersSearch">Search�?/string>
+    <string name="Gift2ResaleFiltersSearch">Search</string>
     <string name="Gift2ResaleFilterModel">Model</string>
     <string name="Gift2ResaleFilterModels_one">%d Model</string>
     <string name="Gift2ResaleFilterModels_other">%d Models</string>

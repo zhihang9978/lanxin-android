@@ -1,6 +1,9 @@
+// LanXin Messenger Build Configuration
+// 简化构建配置，只保留核心模块以提高构建速度和稳定性
 include ':TMessagesProj'
 include ':TMessagesProj_App'
-include ':TMessagesProj_AppHuawei'
-include ':TMessagesProj_AppHockeyApp'
-include ':TMessagesProj_AppStandalone'
-include ':TMessagesProj_AppTests'
+// 禁用非必要的变体以简化构建
+// include ':TMessagesProj_AppHuawei'
+// include ':TMessagesProj_AppHockeyApp'
+// include ':TMessagesProj_AppStandalone'
+// include ':TMessagesProj_AppTests'

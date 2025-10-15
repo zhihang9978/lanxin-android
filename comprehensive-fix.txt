@@ -1,0 +1,54 @@
+# This file will be used by Devin on Linux server with sed command
+# All these patterns need to be fixed in strings.xml
+
+# Pattern: sed -i 's/PATTERN/REPLACEMENT/g' strings.xml
+
+# Em dash fixes
+sed -i 's/ — with/ — with/g' strings.xml
+sed -i 's/data —/data —/g' strings.xml
+sed -i 's/streamed —/streamed —/g' strings.xml
+sed -i 's/media —/media —/g' strings.xml
+sed -i 's/%2$s —/%2$s —/g' strings.xml
+sed -i 's/one —/one —/g' strings.xml
+sed -i 's/now —/now —/g' strings.xml
+sed -i 's/chat —/chat —/g' strings.xml
+sed -i 's/with —/with —/g' strings.xml
+sed -i 's/you —/you —/g' strings.xml
+sed -i 's/%1$s —/%1$s —/g' strings.xml
+sed -i 's/active —/active —/g' strings.xml
+sed -i 's/stars\*\* —/stars** —/g' strings.xml
+sed -i 's/TON\*\* —/TON** —/g' strings.xml
+
+# Quote fixes
+sed -i 's/'"'"'Translate'"'"'/\"Translate\"/g' strings.xml
+sed -i 's/'"'"'Unpack'"'"'/\"Unpack\"/g' strings.xml
+
+# Apostrophe fixes  
+sed -i "s/viewers'/viewers'/g" strings.xml
+sed -i "s/channels'/channels'/g" strings.xml
+sed -i "s/groups'/groups'/g" strings.xml
+sed -i "s/users'/users'/g" strings.xml
+sed -i "s/peoples'/peoples'/g" strings.xml
+
+# Ellipsis fixes
+sed -i 's/more…\*\*/more…**/g' strings.xml
+
+# Range fixes
+sed -i 's/0–9/0–9/g' strings.xml
+sed -i 's/a–z/a–z/g' strings.xml
+
+# Task placeholder fixes
+sed -i 's/marked "task"/marked "%s"/g' strings.xml
+sed -i 's/added "task"/added "%1$s"/g' strings.xml
+
+# General topic fix
+sed -i 's/\*\*General\*\*/\*\*General\*\*/g' strings.xml
+
+# Message As fix
+sed -i 's/As —/As —/g' strings.xml
+
+# Leading dash fixes
+sed -i 's/^— /— /g' strings.xml
+
+echo "All patterns prepared for sed replacement"
+

@@ -1,0 +1,52 @@
+# Batch replacement patterns - Copy these into search_replace operations
+# Format: line_number|old_text|new_text
+
+1936|**a�Cz**, **0��9**|**a–z**, **0–9**
+2326|��Translate��|"Translate"
+2450|蓝信通讯 number here. Your account and all your cloud data �?messages|蓝信通讯 number here. Your account and all your cloud data — messages
+2556|Some videos can't be streamed �?e.g.|Some videos can't be streamed — e.g.
+2566|unnecessary media �?and re-download|unnecessary media — and re-download
+2623|Version %1$s �?%2$s|Version %1$s — %2$s
+2629|**What's new?**\n\n�?Bug|**What's new?**\n\n— Bug
+3915|account now �?or look around|account now — or look around
+4490|using 蓝信通讯 to chat �?and|using 蓝信通讯 to chat — and
+4491|using 蓝信通讯 to chat �?and|using 蓝信通讯 to chat — and
+5345|a new one �?or upgrade|a new one — or upgrade
+5418|You will receive �?**%1$d** boost|You will receive — **%1$d** boost
+5419|You will receive �?**%1$d** boosts|You will receive — **%1$d** boosts
+5580|thousands of emoji �?with|thousands of emoji — with
+5645|**�?s�?*|**General**
+5684|Send Message As�?|Send Message As —
+6520|unlock viewers�?|unlock viewers'
+6534|your stories �?even|your stories — even
+6540|your stories �?up|your stories — up
+6546|peoples�?|peoples'
+6553|peoples�?|peoples'
+6558|viewers�?|viewers'
+6559|active �?%s|active — %s
+6605|viewers�?|viewers'
+6835|channels�?|channels'
+6836|channels�?|channels'
+6837|groups�?|groups'
+6838|groups�?|groups'
+7343|users�?|users'
+7345|蓝信通讯 Premium subscriber, you will see the last seen and read time of all users who are sharing it with you �?even|蓝信通讯 Premium subscriber, you will see the last seen and read time of all users who are sharing it with you — even
+7418|**Learn more�?*|**Learn more…**
+7636|with you �?and|with you — and
+7638|with you �?%1$s|with you — %1$s
+7639|with you �?%1$s|with you — %1$s
+9056|��Unpack�?|"Unpack"
+9424|Stars**�?|Stars** —
+9425|Stars** �?|Stars** —
+9429|TON** �?|TON** —
+9430|TON** �?|TON** —
+9434|�?**%s**|— **%s**
+9435|�?**%s**|— **%s**
+9436|�?**%s**|— **%s**
+9437|�?**%s**|— **%s**
+9513|marked �?s�?|marked "task"
+9514|marked �?s�?|marked "task"
+9517|marked �?s�?|marked "task"
+9518|marked �?s�?|marked "task"
+9519|added �?1$s�?|added "%1$s"
+

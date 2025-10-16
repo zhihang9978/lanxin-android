@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This is the source code of Telegram for Android v. 5.x.x.
  * It is licensed under GNU GPL v. 2 or later.
  * You should have received a copy of the license in this archive (see LICENSE).
@@ -257,7 +257,7 @@ import org.telegram.ui.Components.OtherDocumentPlaceholderDrawable;
 import org.telegram.ui.Components.Paint.Views.LPhotoPaintView;
 import org.telegram.ui.Components.Paint.Views.MaskPaintView;
 import org.telegram.ui.Components.Paint.Views.StickerCutOutBtn;
-import org.telegram.ui.Components.Paint.Views.StickerMakerView;
+// import org.telegram.ui.Components.Paint.Views.StickerMakerView; // 文件已删除
 import org.telegram.ui.Components.Paint.Views.StickerMakerBackgroundView;
 import org.telegram.ui.Components.PaintingOverlay;
 import org.telegram.ui.Components.PhotoCropView;
@@ -1969,7 +1969,7 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
     boolean fromCamera;
     private boolean captionTranslated;
     private String captionDetectedLanguage;
-    public StickerMakerView stickerMakerView;
+    // public StickerMakerView stickerMakerView; // 已删除
     public PhotoViewerCoverEditor coverEditor;
     private ArrayList<String> selectedEmojis;
     private StickerMakerBackgroundView stickerMakerBackgroundView;
@@ -4560,8 +4560,8 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
         if (captionEdit != null) {
             captionEdit.setAccount(currentAccount);
         }
-        if (stickerMakerView != null) {
-            stickerMakerView.setCurrentAccount(currentAccount);
+        // if (stickerMakerView != null) { // StickerMakerView已删除
+            // stickerMakerView.setCurrentAccount(currentAccount); // StickerMakerView已删除
         }
         if (parentActivity == activity || activity == null) {
             updateColors();
@@ -6955,14 +6955,14 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
         };
         stickerMakerBackgroundView.setVisibility(View.GONE);
         containerView.addView(stickerMakerBackgroundView, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT, Gravity.TOP | Gravity.LEFT, 0, 0, 0, 0));
-        stickerMakerView = new StickerMakerView(activityContext, resourcesProvider);
+        // stickerMakerView = new StickerMakerView(activityContext, resourcesProvider); // StickerMakerView已删除
 
-        stickerMakerView.setCurrentAccount(currentAccount);
-        containerView.addView(stickerMakerView, containerView.indexOfChild(actionBar) - 1, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT, Gravity.TOP | Gravity.LEFT, 0, 0, 0, 0));
+        // stickerMakerView.setCurrentAccount(currentAccount); // StickerMakerView已删除
+        // containerView.addView(stickerMakerView, containerView.indexOfChild(actionBar) - 1, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT, Gravity.TOP | Gravity.LEFT, 0, 0, 0, 0)); // StickerMakerView已删除
         cutOutBtn = new BlurButton();
         cutOutBtn.setRad(18);
         cutOutBtn.wrapContentDynamic();
-        stickerMakerView.setStickerCutOutBtn(cutOutBtn);
+        // stickerMakerView.setStickerCutOutBtn(cutOutBtn); // StickerMakerView已删除
         cutOutBtn.setOnClickListener(v -> {
             if (stickerEmpty) {
                 return;
@@ -6970,18 +6970,18 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
             if (cutOutBtn.isLoading() || cutOutBtn.isUndoCutState()) {
                 return;
             }
-            if (currentIndex < 0 || currentIndex >= imagesArrLocals.size() || stickerMakerView.isThanosInProgress) {
+            // if (currentIndex < 0 || currentIndex >= imagesArrLocals.size() || stickerMakerView.isThanosInProgress) { // StickerMakerView已删除
                 return;
             }
             MediaController.MediaEditState entry = (MediaController.MediaEditState) imagesArrLocals.get(currentIndex);
             boolean hasFilters = !TextUtils.isEmpty(entry.filterPath);
             if (cutOutBtn.isCutOutState()) {
                 cutOutBtn.setCancelState(true);
-                stickerMakerView.enableClippingMode(segmentedObject -> {
-                    if (stickerMakerView.hasSegmentedBitmap()) {
-                        ThanosEffect thanosEffect = stickerMakerView.getThanosEffect();
-                        stickerMakerView.setSegmentedState(true, segmentedObject);
-                        Bitmap segmentedImage = stickerMakerView.getSegmentedImage(centerImage.getBitmap(), hasFilters, centerImage.getOrientation());
+                // stickerMakerView.enableClippingMode(segmentedObject -> { // StickerMakerView已删除
+                    // if (stickerMakerView.hasSegmentedBitmap()) { // StickerMakerView已删除
+                        // ThanosEffect thanosEffect = stickerMakerView.getThanosEffect(); // StickerMakerView已删除
+                        // stickerMakerView.setSegmentedState(true, segmentedObject); // StickerMakerView已删除
+                        // Bitmap segmentedImage = stickerMakerView.getSegmentedImage(centerImage.getBitmap(), hasFilters, centerImage.getOrientation()); // StickerMakerView已删除
 
                         Object object = imagesArrLocals.get(currentIndex);
                         MediaController.PhotoEntry photoEntry = ((MediaController.PhotoEntry) object);
@@ -6994,7 +6994,7 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
                             return;
                         }
 
-                        Bitmap bitmap = stickerMakerView.getThanosImage(photoEntry, centerImage.getOrientation());
+                        // Bitmap bitmap = stickerMakerView.getThanosImage(photoEntry, centerImage.getOrientation()); // StickerMakerView已删除
                         if (bitmap == null) {
                             centerImage.setImageBitmap(segmentedImage);
                             cutOutBtn.setUndoCutState(true);
@@ -7050,11 +7050,11 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
                             translationX + tx + Math.max(0, (int) ((getContainerViewWidth() - BW * scale) / 2f)),
                             translationY + ty + Math.max(0, (int) ((getContainerViewHeight() - BH * scale) / 2f))
                         );
-                        stickerMakerView.isThanosInProgress = true;
+                        // stickerMakerView.isThanosInProgress = true; // StickerMakerView已删除
                         Utilities.themeQueue.postRunnable(() -> {
                             applyCurrentEditMode(segmentedImage);
                         });
-                        Runnable turnOff = () -> stickerMakerView.isThanosInProgress = false;
+                        // Runnable turnOff = () -> stickerMakerView.isThanosInProgress = false; // StickerMakerView已删除
                         thanosEffect.animate(matrix, bitmap, () -> {
                             centerImage.setImageBitmap(segmentedImage);
                             cutOutBtn.setUndoCutState(true);
@@ -7067,20 +7067,20 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
                         cutOutBtn.setCutOutState(true);
                         showEditStickerMode(false, true);
                     }
-                    stickerMakerView.disableClippingMode();
+                    // stickerMakerView.disableClippingMode(); // StickerMakerView已删除
                     containerView.invalidate();
                 });
                 containerView.invalidate();
             } else if (cutOutBtn.isCancelState()) {
                 cutOutBtn.setCutOutState(true);
                 showEditStickerMode(false, true);
-                stickerMakerView.disableClippingMode();
+                // stickerMakerView.disableClippingMode(); // StickerMakerView已删除
                 containerView.invalidate();
             } else {
-                stickerMakerView.resetPaths();
-                stickerMakerView.getThanosEffect();
-                stickerMakerView.setSegmentedState(false, null);
-                centerImage.setImageBitmap(stickerMakerView.getSourceBitmap(hasFilters));
+                // stickerMakerView.resetPaths(); // StickerMakerView已删除
+                // stickerMakerView.getThanosEffect(); // StickerMakerView已删除
+                // stickerMakerView.setSegmentedState(false, null); // StickerMakerView已删除
+                // centerImage.setImageBitmap(stickerMakerView.getSourceBitmap(hasFilters)); // StickerMakerView已删除
                 cutOutBtn.setCutOutState(true);
                 showEditStickerMode(false, true);
                 applyCurrentEditMode();
@@ -7099,8 +7099,8 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
         eraseBtn.setOnClickListener(v -> {
             eraseBtn.setActive(true, true);
             restoreBtn.setActive(false, true);
-            if (stickerMakerView != null) {
-                stickerMakerView.setOutlineVisible(false);
+            // if (stickerMakerView != null) { // StickerMakerView已删除
+                // stickerMakerView.setOutlineVisible(false); // StickerMakerView已删除
             }
             maskPaintViewEraser = true;
             if (maskPaintView != null) {
@@ -7119,8 +7119,8 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
         restoreBtn.setOnClickListener(v -> {
             eraseBtn.setActive(false, true);
             restoreBtn.setActive(true, true);
-            if (stickerMakerView != null) {
-                stickerMakerView.setOutlineVisible(false);
+            // if (stickerMakerView != null) { // StickerMakerView已删除
+                // stickerMakerView.setOutlineVisible(false); // StickerMakerView已删除
             }
             maskPaintViewEraser = false;
             if (maskPaintView != null) {
@@ -7139,14 +7139,14 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
         undoBtn.setOnClickListener(v -> {
             if (maskPaintView == null || !maskPaintView.undo()) {
                 switchToEditMode(EDIT_MODE_NONE);
-                stickerMakerView.resetPaths();
+                // stickerMakerView.resetPaths(); // StickerMakerView已删除
                 MediaController.MediaEditState entry = (MediaController.MediaEditState) imagesArrLocals.get(currentIndex);
                 boolean hasFilters = !TextUtils.isEmpty(entry.filterPath);
-                if (stickerMakerView != null && !stickerMakerView.empty) {
-                    stickerMakerView.setSegmentedState(false, null);
+                // if (stickerMakerView != null && !stickerMakerView.empty) { // StickerMakerView已删除
+                    // stickerMakerView.setSegmentedState(false, null); // StickerMakerView已删除
                 }
-                centerImage.setImageBitmap(stickerMakerView.getSourceBitmap(hasFilters));
-                if (stickerMakerView == null || !stickerMakerView.empty) {
+                // centerImage.setImageBitmap(stickerMakerView.getSourceBitmap(hasFilters)); // StickerMakerView已删除
+                // if (stickerMakerView == null || !stickerMakerView.empty) { // StickerMakerView已删除
                     cutOutBtn.setCutOutState(true);
                 }
                 showStickerMode(true, true);
@@ -7159,9 +7159,9 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
         outlineBtn.setRad(18);
         outlineBtn.wrapContent();
         outlineBtn.setOnClickListener(v -> {
-            if (stickerMakerView != null) {
+            // if (stickerMakerView != null) { // StickerMakerView已删除
                 outlineBtn.setActive(!outlineBtn.isActive(), true);
-                stickerMakerView.setOutlineVisible(outlineBtn.isActive() && !(eraseBtn.isActive() || restoreBtn.isActive()));
+                // stickerMakerView.setOutlineVisible(outlineBtn.isActive() && !(eraseBtn.isActive() || restoreBtn.isActive())); // StickerMakerView已删除
             }
         });
         containerView.addView(outlineBtn, LayoutHelper.createFrame(LayoutHelper.WRAP_CONTENT, 36, Gravity.CENTER));
@@ -8010,13 +8010,13 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
                         int containerHeight = getContainerViewHeight();
                         float borderSize = containerWidth - dp(20);
 
-                        if (stickerMakerView != null && stickerMakerView.outlineVisible && stickerMakerView.getSourceBitmap() != null) {
+                        // if (stickerMakerView != null && stickerMakerView.outlineVisible && stickerMakerView.getSourceBitmap() != null) { // StickerMakerView已删除
 
                             canvas.save();
                             canvas.translate(canvasBitmap.getWidth() / 2f, canvasBitmap.getHeight() / 2f);
                             canvas.scale(canvasBitmap.getWidth() / borderSize, canvasBitmap.getHeight() / borderSize);
                             applyTransformToOutline(canvas);
-                            stickerMakerView.drawOutline(canvas, false, null, false);
+                            // stickerMakerView.drawOutline(canvas, false, null, false); // StickerMakerView已删除
                             canvas.restore();
 
                             canvas.save();
@@ -8030,7 +8030,7 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
                             canvas.translate(canvasBitmap.getWidth() / 2f, canvasBitmap.getHeight() / 2f);
                             canvas.scale(canvasBitmap.getWidth() / borderSize, canvasBitmap.getHeight() / borderSize);
                             applyTransformToOutline(canvas);
-                            stickerMakerView.drawOutline(canvas, true, null, false);
+                            // stickerMakerView.drawOutline(canvas, true, null, false); // StickerMakerView已删除
                             canvas.restore();
                         } else {
                             canvas.save();
@@ -8116,8 +8116,8 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
                             selectedEmojis = new ArrayList<>();
                         }
                         if (selectedEmojis.isEmpty()) {
-                            if (stickerMakerView.detectedEmoji != null && Emoji.getEmojiDrawable(stickerMakerView.detectedEmoji) != null) {
-                                selectedEmojis.add(stickerMakerView.detectedEmoji);
+                            // if (stickerMakerView.detectedEmoji != null && Emoji.getEmojiDrawable(stickerMakerView.detectedEmoji) != null) { // StickerMakerView已删除
+                                // selectedEmojis.add(stickerMakerView.detectedEmoji); // StickerMakerView已删除
                             } else if (stickerEmoji != null) {
                                 selectedEmojis.add(stickerEmoji);
                             } else {
@@ -8126,7 +8126,7 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
                         }
 
                         doneButtonPressed = false;
-                        ContentPreviewViewer.getInstance().showCustomStickerActions(fullStickerPath, videoEditedInfo1, stickerMakerView, selectedEmojis, new ContentPreviewViewer.ContentPreviewViewerDelegate() {
+                        // ContentPreviewViewer.getInstance().showCustomStickerActions(fullStickerPath, videoEditedInfo1, stickerMakerView, selectedEmojis, new ContentPreviewViewer.ContentPreviewViewerDelegate() { // StickerMakerView已删除
                             @Override
                             public void sendSticker() {
                                 if (placeProvider == null)
@@ -8175,28 +8175,28 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
                             public void addToFavoriteSelected(String emoji) {
                                 stickerEmptySent = true;
                                 generateThumb();
-                                stickerMakerView.uploadStickerFile(fullStickerPath, finalVideoEditedInfo, emoji, null, true, null, null, photoEntry.thumbPath, null, null);
+                                // stickerMakerView.uploadStickerFile(fullStickerPath, finalVideoEditedInfo, emoji, null, true, null, null, photoEntry.thumbPath, null, null); // StickerMakerView已删除
                             }
 
                             @Override
                             public void stickerSetSelected(TLRPC.StickerSet stickerSet, String emoji) {
                                 stickerEmptySent = true;
                                 generateThumb();
-                                stickerMakerView.uploadStickerFile(fullStickerPath, finalVideoEditedInfo, emoji, null, false, stickerSet, replacedSticker, photoEntry.thumbPath, null, null);
+                                // stickerMakerView.uploadStickerFile(fullStickerPath, finalVideoEditedInfo, emoji, null, false, stickerSet, replacedSticker, photoEntry.thumbPath, null, null); // StickerMakerView已删除
                             }
 
                             @Override
                             public void newStickerPackSelected(CharSequence name, String emoji, Utilities.Callback<Boolean> whenDone) {
                                 stickerEmptySent = true;
                                 generateThumb();
-                                stickerMakerView.uploadStickerFile(fullStickerPath, finalVideoEditedInfo, emoji, name, false, null, null, photoEntry.thumbPath, whenDone, null);
+                                // stickerMakerView.uploadStickerFile(fullStickerPath, finalVideoEditedInfo, emoji, name, false, null, null, photoEntry.thumbPath, whenDone, null); // StickerMakerView已删除
                             }
 
                             @Override
                             public void setIntroSticker(String emoji) {
                                 stickerEmptySent = true;
                                 generateThumb();
-                                stickerMakerView.uploadStickerFile(fullStickerPath, finalVideoEditedInfo, emoji, null, false, null, null, photoEntry.thumbPath, null, customStickerHandler);
+                                // stickerMakerView.uploadStickerFile(fullStickerPath, finalVideoEditedInfo, emoji, null, false, null, null, photoEntry.thumbPath, null, customStickerHandler); // StickerMakerView已删除
                             }
 
                             @Override
@@ -11244,7 +11244,7 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
             }
         } else if (currentEditMode == EDIT_MODE_FILTER) {
             bitmap = photoFilterView.getBitmap();
-            bitmap = stickerMakerView.cutSegmentInFilteredBitmap(bitmap, centerImage.getOrientation());
+            // bitmap = stickerMakerView.cutSegmentInFilteredBitmap(bitmap, centerImage.getOrientation()); // StickerMakerView已删除
             savedFilterState = photoFilterView.getSavedFilterState();
         } else if (currentEditMode == EDIT_MODE_PAINT) {
             if (sendPhotoType == 0 || sendPhotoType == SELECT_TYPE_AVATAR || sendPhotoType == SELECT_TYPE_STICKER || sendPhotoType == 2) {
@@ -11262,8 +11262,8 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
             applyCurrentEditMode(bitmap);
             eraseBtn.setActive(false, true);
             restoreBtn.setActive(false, true);
-            if (stickerMakerView != null) {
-                int r = centerImage.getOrientation() - stickerMakerView.orientation;
+            // if (stickerMakerView != null) { // StickerMakerView已删除
+                // int r = centerImage.getOrientation() - stickerMakerView.orientation; // StickerMakerView已删除
                 if (r != 0) {
                     int w = bitmap.getWidth(), h = bitmap.getHeight();
                     int rw = w, rh = h;
@@ -11277,9 +11277,9 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
                     canvas.rotate(r);
                     canvas.translate(rw / 2f, rh / 2f);
                     canvas.drawBitmap(bitmap, 0, 0, new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
-                    stickerMakerView.updateOutlinePath(rotatedBitmap);
+                    // stickerMakerView.updateOutlinePath(rotatedBitmap); // StickerMakerView已删除
                 } else {
-                    stickerMakerView.updateOutlinePath(bitmap);
+                    // stickerMakerView.updateOutlinePath(bitmap); // StickerMakerView已删除
                 }
             }
             return;
@@ -12045,8 +12045,8 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
                     ArrayList<Animator> arrayList = new ArrayList<>();
                     arrayList.add(ObjectAnimator.ofFloat(pickerView, View.TRANSLATION_Y, 0));
                     arrayList.add(ObjectAnimator.ofFloat(pickerView, View.ALPHA, 1));
-                    if (stickerMakerView != null) {
-                        arrayList.add(ObjectAnimator.ofFloat(stickerMakerView, View.ALPHA, 1));
+                    // if (stickerMakerView != null) { // StickerMakerView已删除
+                        // arrayList.add(ObjectAnimator.ofFloat(stickerMakerView, View.ALPHA, 1)); // StickerMakerView已删除
                     }
                     if (stickerMakerBackgroundView != null) {
                         arrayList.add(ObjectAnimator.ofFloat(stickerMakerBackgroundView, View.ALPHA, 1));
@@ -12131,8 +12131,8 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
             ArrayList<Animator> arrayList = new ArrayList<>();
             arrayList.add(ObjectAnimator.ofFloat(pickerView, View.TRANSLATION_Y, 0, pickerView.getHeight() + captionEdit.getEditTextHeight() + (isCurrentVideo ? dp(58) : 0)));
             arrayList.add(ObjectAnimator.ofFloat(pickerView, View.ALPHA, 0));
-            if (stickerMakerView != null) {
-                arrayList.add(ObjectAnimator.ofFloat(stickerMakerView, View.ALPHA, 0));
+            // if (stickerMakerView != null) { // StickerMakerView已删除
+                // arrayList.add(ObjectAnimator.ofFloat(stickerMakerView, View.ALPHA, 0)); // StickerMakerView已删除
             }
             if (stickerMakerBackgroundView != null) {
                 arrayList.add(ObjectAnimator.ofFloat(stickerMakerBackgroundView, View.ALPHA, 0));
@@ -12290,7 +12290,7 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
                     bitmap = null;
                 } else {
                     if (state == null) {
-                        bitmap = stickerMakerView.isSegmentedState() ? stickerMakerView.getSourceBitmap() : centerImage.getBitmap();
+                        // bitmap = stickerMakerView.isSegmentedState() ? stickerMakerView.getSourceBitmap() : centerImage.getBitmap(); // StickerMakerView已删除
                         orientation = centerImage.getOrientation();
                     } else {
                         bitmap = BitmapFactory.decodeFile(originalPath);
@@ -12305,7 +12305,7 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
                 } else {
                     hasFaces = currentImageHasFace == 1 ? 1 : 0;
                 }
-                Bitmap bitmapMask = stickerMakerView.getSegmentedDarkMaskImage();
+                // Bitmap bitmapMask = stickerMakerView.getSegmentedDarkMaskImage(); // StickerMakerView已删除
                 photoFilterView = new PhotoFilterView(parentActivity, videoTextureView != null ? (VideoEditTextureView) videoTextureView : null, bitmap, bitmapMask, orientation, state, isCurrentVideo ? null : paintingOverlay, hasFaces, videoTextureView == null && (editState.cropState != null && editState.cropState.mirrored || cropTransform.isMirrored()), true, null, resourcesProvider);
                 containerView.addView(photoFilterView, LayoutHelper.createFrame(LayoutHelper.MATCH_PARENT, LayoutHelper.MATCH_PARENT));
                 photoFilterView.getDoneTextView().setOnClickListener(v -> {
@@ -12334,8 +12334,8 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
             ArrayList<Animator> arrayList = new ArrayList<>();
             arrayList.add(ObjectAnimator.ofFloat(pickerView, View.TRANSLATION_Y, 0, pickerView.getHeight() + captionEdit.getEditTextHeight() + (isCurrentVideo ? dp(58) : 0)));
             arrayList.add(ObjectAnimator.ofFloat(pickerView, View.ALPHA, 0));
-            if (stickerMakerView != null) {
-                arrayList.add(ObjectAnimator.ofFloat(stickerMakerView, View.ALPHA, 0));
+            // if (stickerMakerView != null) { // StickerMakerView已删除
+                // arrayList.add(ObjectAnimator.ofFloat(stickerMakerView, View.ALPHA, 0)); // StickerMakerView已删除
             }
             if (stickerMakerBackgroundView != null) {
                 arrayList.add(ObjectAnimator.ofFloat(stickerMakerBackgroundView, View.ALPHA, 0));
@@ -12465,8 +12465,8 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
             ArrayList<Animator> arrayList = new ArrayList<>();
             arrayList.add(ObjectAnimator.ofFloat(pickerView, View.TRANSLATION_Y, pickerView.getHeight() + captionEdit.getEditTextHeight() + (isCurrentVideo ? dp(58) : 0)));
             arrayList.add(ObjectAnimator.ofFloat(pickerView, View.ALPHA, 0));
-            if (stickerMakerView != null) {
-                arrayList.add(ObjectAnimator.ofFloat(stickerMakerView, View.ALPHA, stickerEmpty ? 1 : 0));
+            // if (stickerMakerView != null) { // StickerMakerView已删除
+                // arrayList.add(ObjectAnimator.ofFloat(stickerMakerView, View.ALPHA, stickerEmpty ? 1 : 0)); // StickerMakerView已删除
             }
             if (stickerMakerBackgroundView != null) {
                 arrayList.add(ObjectAnimator.ofFloat(stickerMakerBackgroundView, View.ALPHA, stickerEmpty ? 1 : 0));
@@ -12508,8 +12508,8 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
             ArrayList<Animator> arrayList = new ArrayList<>();
             arrayList.add(ObjectAnimator.ofFloat(pickerView, View.TRANSLATION_Y, pickerView.getHeight() + captionEdit.getEditTextHeight() + (isCurrentVideo ? dp(58) : 0)));
             arrayList.add(ObjectAnimator.ofFloat(pickerView, View.ALPHA, 0));
-            if (stickerMakerView != null) {
-                arrayList.add(ObjectAnimator.ofFloat(stickerMakerView, View.ALPHA, 1));
+            // if (stickerMakerView != null) { // StickerMakerView已删除
+                // arrayList.add(ObjectAnimator.ofFloat(stickerMakerView, View.ALPHA, 1)); // StickerMakerView已删除
             }
             if (stickerMakerBackgroundView != null) {
                 arrayList.add(ObjectAnimator.ofFloat(stickerMakerBackgroundView, View.ALPHA, 1));
@@ -12608,12 +12608,12 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
             state = editState.cropState;
         }
         Bitmap originalBitmap = Bitmap.createBitmap(centerImage.getBitmapWidth(), centerImage.getBitmapHeight(), Bitmap.Config.ARGB_8888);
-        if (stickerMakerView != null && stickerMakerView.getSourceBitmap() != null) {
-            Bitmap b = stickerMakerView.getSourceBitmap();
+        // if (stickerMakerView != null && stickerMakerView.getSourceBitmap() != null) { // StickerMakerView已删除
+            // Bitmap b = stickerMakerView.getSourceBitmap(); // StickerMakerView已删除
             Canvas canvas = new Canvas(originalBitmap);
             canvas.translate(originalBitmap.getWidth() / 2f, originalBitmap.getHeight() / 2f);
-            canvas.rotate(stickerMakerView.orientation);
-            final float s = originalBitmap.getWidth() / (float) (stickerMakerView.orientation / 90 % 2 != 0 ? b.getHeight() : b.getWidth());
+            // canvas.rotate(stickerMakerView.orientation); // StickerMakerView已删除
+            // final float s = originalBitmap.getWidth() / (float) (stickerMakerView.orientation / 90 % 2 != 0 ? b.getHeight() : b.getWidth()); // StickerMakerView已删除
             AndroidUtilities.rectTmp.set(
                 -b.getWidth() / 2f * s,
                 -b.getHeight() / 2f * s,
@@ -12962,10 +12962,10 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
         final float offsetY = AndroidUtilities.dpf2(24);
         arrayList.add(ObjectAnimator.ofFloat(pickerView, View.ALPHA, show ? 1.0f : 0.0f));
         arrayList.add(ObjectAnimator.ofFloat(pickerView, View.TRANSLATION_Y, show ? 0.0f : offsetY));
-        if (stickerMakerView != null) {
-            arrayList.add(ObjectAnimator.ofFloat(stickerMakerView, View.ALPHA, show ? 1.0f : 0.0f));
+        // if (stickerMakerView != null) { // StickerMakerView已删除
+            // arrayList.add(ObjectAnimator.ofFloat(stickerMakerView, View.ALPHA, show ? 1.0f : 0.0f)); // StickerMakerView已删除
         }
-        if (stickerMakerView != null) {
+        // if (stickerMakerView != null) { // StickerMakerView已删除
             arrayList.add(ObjectAnimator.ofFloat(stickerMakerBackgroundView, View.ALPHA, show ? 1.0f : 0.0f));
         }
         arrayList.add(ObjectAnimator.ofFloat(pickerViewSendButton, View.ALPHA, show ? 1.0f : 0.0f));
@@ -13755,13 +13755,13 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
         if (countView != null) {
             countView.updateShow(false, false);
         }
-        if (sendPhotoType != SELECT_TYPE_STICKER && stickerMakerView != null) {
+        // if (sendPhotoType != SELECT_TYPE_STICKER && stickerMakerView != null) { // StickerMakerView已删除
             stickerEmpty = false;
             if (tuneItem != null) {
                 tuneItem.setAlpha(1f);
             }
             if (outlineBtn != null) outlineBtn.setActive(false, false);
-            stickerMakerView.clean();
+            // stickerMakerView.clean(); // StickerMakerView已删除
             if (selectedEmojis != null) selectedEmojis.clear();
         }
         bottomLayout.setTranslationY(0);
@@ -15026,9 +15026,9 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
         customStickerHandler = customHandler;
         rotate = 0;
         animateToRotate = 0;
-        if (stickerMakerView != null) {
+        // if (stickerMakerView != null) { // StickerMakerView已删除
             if (outlineBtn != null) outlineBtn.setActive(false, false);
-            stickerMakerView.clean();
+            // stickerMakerView.clean(); // StickerMakerView已删除
             if (selectedEmojis != null) selectedEmojis.clear();
         }
         if (replacedSticker != null) {
@@ -15052,16 +15052,16 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
     }
 
     public void prepareSegmentImage() {
-        if (stickerMakerView != null && sendPhotoType == SELECT_TYPE_STICKER) {
+        // if (stickerMakerView != null && sendPhotoType == SELECT_TYPE_STICKER) { // StickerMakerView已删除
             if (stickerEmpty) {
-                stickerMakerView.clean();
+                // stickerMakerView.clean(); // StickerMakerView已删除
             } else {
-                stickerMakerView.segmentImage(centerImage.getBitmap(), centerImage.getOrientation(), getContainerViewWidth(), getContainerViewHeight(), object -> {
+                // stickerMakerView.segmentImage(centerImage.getBitmap(), centerImage.getOrientation(), getContainerViewWidth(), getContainerViewHeight(), object -> { // StickerMakerView已删除
                     try {
                         MediaController.MediaEditState entry = (MediaController.MediaEditState) imagesArrLocals.get(currentIndex);
                         boolean hasFilters = !TextUtils.isEmpty(entry.filterPath);
-                        stickerMakerView.setSegmentedState(true, object);
-                        Bitmap segmentedImage = stickerMakerView.getSegmentedImage(centerImage.getBitmap(), hasFilters, centerImage.getOrientation());
+                        // stickerMakerView.setSegmentedState(true, object); // StickerMakerView已删除
+                        // Bitmap segmentedImage = stickerMakerView.getSegmentedImage(centerImage.getBitmap(), hasFilters, centerImage.getOrientation()); // StickerMakerView已删除
                         centerImage.setImageBitmap(segmentedImage);
                         cutOutBtn.setUndoCutState(true);
                         showStickerMode(true, true, true);
@@ -15080,30 +15080,30 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
 
     private void showStickerMode(boolean show, boolean buttonsShow, boolean animated) {
         if (!animated) {
-            stickerMakerView.animate().setListener(null).cancel();
-            stickerMakerView.setVisibility(show ? View.VISIBLE : View.GONE);
-            stickerMakerView.setAlpha(pickerView.getAlpha());
+            // stickerMakerView.animate().setListener(null).cancel(); // StickerMakerView已删除
+            // stickerMakerView.setVisibility(show ? View.VISIBLE : View.GONE); // StickerMakerView已删除
+            // stickerMakerView.setAlpha(pickerView.getAlpha()); // StickerMakerView已删除
             stickerMakerBackgroundView.animate().setListener(null).cancel();
             stickerMakerBackgroundView.setVisibility(show ? View.VISIBLE : View.GONE);
             stickerMakerBackgroundView.setAlpha(show ? 1f : 0f);
         } else {
-            if (show && stickerMakerView.getTag() == null) {
-                stickerMakerView.animate().setListener(null).cancel();
+            // if (show && stickerMakerView.getTag() == null) { // StickerMakerView已删除
+                // stickerMakerView.animate().setListener(null).cancel(); // StickerMakerView已删除
                 stickerMakerBackgroundView.animate().setListener(null).cancel();
-                if (stickerMakerView.getVisibility() != View.VISIBLE) {
-                    stickerMakerView.setVisibility(View.VISIBLE);
-                    stickerMakerView.animate().alpha(1f).start();
+                // if (stickerMakerView.getVisibility() != View.VISIBLE) { // StickerMakerView已删除
+                    // stickerMakerView.setVisibility(View.VISIBLE); // StickerMakerView已删除
+                    // stickerMakerView.animate().alpha(1f).start(); // StickerMakerView已删除
                     stickerMakerBackgroundView.setVisibility(View.VISIBLE);
                     stickerMakerBackgroundView.animate().alpha(1f).start();
                 }
-            } else if (!show && stickerMakerView.getTag() != null) {
-                stickerMakerView.animate().setListener(null).cancel();
-                stickerMakerView.animate().alpha(0f).setListener(new HideViewAfterAnimation(stickerMakerView)).start();
+            // } else if (!show && stickerMakerView.getTag() != null) { // StickerMakerView已删除
+                // stickerMakerView.animate().setListener(null).cancel(); // StickerMakerView已删除
+                // stickerMakerView.animate().alpha(0f).setListener(new HideViewAfterAnimation(stickerMakerView)).start(); // StickerMakerView已删除
                 stickerMakerBackgroundView.animate().setListener(null).cancel();
                 stickerMakerBackgroundView.animate().alpha(0f).setListener(new HideViewAfterAnimation(stickerMakerBackgroundView)).start();
             }
         }
-        stickerMakerView.setTag(show ? 1 : null);
+        // stickerMakerView.setTag(show ? 1 : null); // StickerMakerView已删除
         boolean buttonShow = show && !cutOutBtn.isUndoCutState() && !stickerEmpty;
         if (!animated) {
             cutOutBtn.animate().setListener(null).cancel();
@@ -15124,7 +15124,7 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
         cutOutBtn.setTag(buttonShow ? 1 : null);
         showEditStickerMode(show && cutOutBtn.isUndoCutState() && !stickerEmpty, animated);
 
-        stickerMakerView.setOutlineVisible(show && cutOutBtn.isUndoCutState() && outlineBtn.isActive() && !(eraseBtn.isActive() || restoreBtn.isActive()));
+        // stickerMakerView.setOutlineVisible(show && cutOutBtn.isUndoCutState() && outlineBtn.isActive() && !(eraseBtn.isActive() || restoreBtn.isActive())); // StickerMakerView已删除
         boolean outlineShow = show && cutOutBtn.isUndoCutState() && !(eraseBtn.isActive() || restoreBtn.isActive());
         if (!animated) {
             outlineBtn.animate().setListener(null).cancel();
@@ -15148,7 +15148,7 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
     }
 
     private void showEditStickerMode(boolean show, boolean animated) {
-        boolean showUndoBtn = show && stickerMakerView != null && (!stickerMakerView.empty || stickerMakerView.overriddenPaths() || maskPaintView != null && maskPaintView.canUndo());
+        // boolean showUndoBtn = show && stickerMakerView != null && (!stickerMakerView.empty || stickerMakerView.overriddenPaths() || maskPaintView != null && maskPaintView.canUndo()); // StickerMakerView已删除
         if (!animated) {
             undoBtn.animate().setListener(null).cancel();
             undoBtn.setVisibility(showUndoBtn ? View.VISIBLE : View.GONE);
@@ -16766,13 +16766,13 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
             }
             pickerViewSendButton.setLayoutParams(layoutParams2);
         }
-        if (type != SELECT_TYPE_STICKER && stickerMakerView != null) {
+        // if (type != SELECT_TYPE_STICKER && stickerMakerView != null) { // StickerMakerView已删除
             stickerEmpty = false;
             if (tuneItem != null) {
                 tuneItem.setAlpha(1f);
             }
             if (outlineBtn != null) outlineBtn.setActive(false, false);
-            stickerMakerView.clean();
+            // stickerMakerView.clean(); // StickerMakerView已删除
             if (selectedEmojis != null) selectedEmojis.clear();
         }
         if (sendPhotoType != SELECT_TYPE_AVATAR && type == SELECT_TYPE_AVATAR && isVisible) {
@@ -17642,12 +17642,12 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
     }
 
     public void closePhoto(boolean animated, boolean fromEditMode) {
-        if (stickerMakerView != null) {
-            stickerMakerView.isThanosInProgress = false;
+        // if (stickerMakerView != null) { // StickerMakerView已删除
+            // stickerMakerView.isThanosInProgress = false; // StickerMakerView已删除
             if (cutOutBtn.isCancelState()) {
                 cutOutBtn.setCutOutState(true);
                 showEditStickerMode(false, true);
-                stickerMakerView.disableClippingMode();
+                // stickerMakerView.disableClippingMode(); // StickerMakerView已删除
                 containerView.invalidate();
             }
         }
@@ -19392,7 +19392,7 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
             alpha = maskPaintView.getRenderView().getAlpha() > .99f ? 0f : 1f;
         }
         if (centerImage.hasBitmapImage() || drawTextureView && textureUploaded) {
-            if (stickerMakerView != null && stickerMakerView.outlineVisible) {
+            // if (stickerMakerView != null && stickerMakerView.outlineVisible) { // StickerMakerView已删除
                 boolean isCropped = false;
                 try {
                     Object object = imagesArrLocals.get(currentIndex);
@@ -19400,16 +19400,16 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
                     isCropped = photoEntry.isCropped;
                 } catch (Exception e) {}
                 if (isCropped) {
-                    stickerMakerView.updateOutlineBounds(false);
+                    // stickerMakerView.updateOutlineBounds(false); // StickerMakerView已删除
                 } else {
                     int stickerSize = containerWidth - dp(20);
-                    stickerMakerView.outlineMatrix.reset();
-                    stickerMakerView.outlineMatrix.postTranslate(-.5f, -.5f);
-                    stickerMakerView.outlineMatrix.postScale(stickerSize, stickerSize);
-                    stickerMakerView.outlineMatrix.postScale(1f / currentScale, 1f / currentScale);
-                    stickerMakerView.outlineMatrix.postTranslate(-currentTranslationX / currentScale, -currentTranslationY / currentScale);
-                    stickerMakerView.outlineMatrix.postRotate(-currentRotation);
-                    stickerMakerView.updateOutlineBounds(true);
+                    // stickerMakerView.outlineMatrix.reset(); // StickerMakerView已删除
+                    // stickerMakerView.outlineMatrix.postTranslate(-.5f, -.5f); // StickerMakerView已删除
+                    // stickerMakerView.outlineMatrix.postScale(stickerSize, stickerSize); // StickerMakerView已删除
+                    // stickerMakerView.outlineMatrix.postScale(1f / currentScale, 1f / currentScale); // StickerMakerView已删除
+                    // stickerMakerView.outlineMatrix.postTranslate(-currentTranslationX / currentScale, -currentTranslationY / currentScale); // StickerMakerView已删除
+                    // stickerMakerView.outlineMatrix.postRotate(-currentRotation); // StickerMakerView已删除
+                    // stickerMakerView.updateOutlineBounds(true); // StickerMakerView已删除
                 }
             }
 
@@ -19926,11 +19926,11 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
         }
         if (photoViewerWebView == null || !photoViewerWebView.isLoaded()) {
             if (!centerImageTransformLocked) centerImageTransform.preTranslate(centerImage.getImageX(), centerImage.getImageY());
-            stickerMakerView.drawOutline(canvas, false, containerView, switchingToMode != -1);
+            // stickerMakerView.drawOutline(canvas, false, containerView, switchingToMode != -1); // StickerMakerView已删除
             centerImage.setAlpha(alpha);
             centerImage.draw(canvas);
-            stickerMakerView.drawOutline(canvas, true, containerView, switchingToMode != -1);
-            stickerMakerView.drawSegmentBorderPath(canvas, centerImage, centerImageTransform, containerView);
+            // stickerMakerView.drawOutline(canvas, true, containerView, switchingToMode != -1); // StickerMakerView已删除
+            // stickerMakerView.drawSegmentBorderPath(canvas, centerImage, centerImageTransform, containerView); // StickerMakerView已删除
             centerImageTransformLocked = true;
         }
         if (restore) {
@@ -22011,13 +22011,13 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
         if (sendPhotoType == SELECT_TYPE_STICKER && cutOutBtn.isCancelState()) {
             cutOutBtn.setCutOutState(true);
             showEditStickerMode(true, true);
-            stickerMakerView.disableClippingMode();
+            // stickerMakerView.disableClippingMode(); // StickerMakerView已删除
             containerView.invalidate();
         }
     }
 
     private void invalidateBlur() {
-        if (stickerMakerView != null && stickerMakerView.isThanosInProgress) {
+        // if (stickerMakerView != null && stickerMakerView.isThanosInProgress) { // StickerMakerView已删除
             return;
         }
 //        if (animationInProgress != 0) {
@@ -22054,7 +22054,7 @@ public class PhotoViewer implements NotificationCenter.NotificationCenterDelegat
 
     private class BlurButton extends StickerCutOutBtn {
         public BlurButton() {
-            super(stickerMakerView, activityContext, resourcesProvider, blurManager);
+            // super(stickerMakerView, activityContext, resourcesProvider, blurManager); // StickerMakerView已删除
         }
 
         private final Path path = new Path();
